@@ -32,29 +32,10 @@ body {
   border-bottom: 1px solid #e5e7eb;
 }
 
-.brand-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.brand-name {
+.site-name {
   margin-left: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #000;
-}
-
-.navigation {
-  margin-left: auto;
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-link {
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
   color: #000;
 }
 
@@ -120,96 +101,6 @@ body {
 
 .secondary-button:hover {
   opacity: 0.8;
-}
-
-/* Features Section */
-.features-section {
-  background-color: #f9fafb;
-  padding: 3rem 0;
-}
-
-.features-grid {
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.feature-item {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.icon-wrapper {
-  padding: 1rem;
-  border-radius: 9999px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-}
-
-.blue-background {
-  background-color: #3b82f6;
-}
-
-.green-background {
-  background-color: #10b981;
-}
-
-.purple-background {
-  background-color: #8b5cf6;
-}
-
-.feature-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.feature-description {
-  color: #6b7280;
-}
-
-/* Signup Section */
-.signup-section {
-  text-align: center;
-  padding: 3rem 0;
-}
-
-.signup-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.signup-form-container {
-  max-width: 600px;
-  width: 100%;
-}
-
-.signup-form {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.email-input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-}
-
-.form-note {
-  font-size: 0.75rem;
-  color: #6b7280;
-}
-
-.terms-link {
-  text-decoration: underline;
-  color: #1d4ed8;
 }
 
 /* Footer */
