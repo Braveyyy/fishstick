@@ -1,6 +1,10 @@
 import '../css/LandingPage.css';
+import { Outlet, Link } from 'react-router-dom';
 
 export default function LandingPage() {
+    primaryButtonClick = () => {
+        <Link to="/workoutPlans"></Link>
+    }
     return(
         <div className="flex-container flex-column min-screen-height">
             <header className="header-container">    
