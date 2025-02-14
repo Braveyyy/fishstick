@@ -10,9 +10,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingPage/>}>
-          <Route path="workoutPlans" element={<WorkoutPlans/>}></Route>
-        </Route>
+        <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="workoutPlans" element={<WorkoutPlans/>}></Route>
       </Routes>
     </BrowserRouter>
   );

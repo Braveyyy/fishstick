@@ -1,10 +1,8 @@
 import '../css/LandingPage.css';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
-    primaryButtonClick = () => {
-        <Link to="/workoutPlans"></Link>
-    }
+    const navigate = useNavigate();
     return(
         <div className="flex-container flex-column min-screen-height">
             <header className="header-container">    
@@ -20,7 +18,8 @@ export default function LandingPage() {
                                 <p className="subheading">Search by specific muscle groups & find workout plans that actually work</p>
                             </div>
                             <div className="button-group">
-                                <button className="primary-button">Find Workout Plans</button>
+                                <Link to={"/workoutPlans"} className="primary-button">Find Workouts</Link>
+                                <button className="primary-button" onClick={() => navigate('/workoutPlans')}>Find Workout Plans</button>
                                 <button className="secondary-button">Target Specific Muscle Groups</button>
                             </div>
                         </div>
@@ -35,6 +34,7 @@ export default function LandingPage() {
                     <a className="footer-link" href="mailto:adamaouaj01@gmail.com">Contact</a>
                 </nav>
             </footer>
+        <Outlet/>
         </div>
     );
 }
