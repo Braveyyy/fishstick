@@ -19,7 +19,7 @@ export default function LandingPage() {
                             </div>
                             <div className="button-group">
                                 <button className="primary-button" onClick={() => navigate('/workoutPlans')}>Find Workout Plans</button>
-                                <button className="secondary-button">Target Specific Muscle Groups</button>
+                                <button className="secondary-button" onClick={() => navigate('/exercises')}>Target Specific Muscle Groups</button>
                             </div>
                         </div>
                     </div>
