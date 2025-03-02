@@ -18,7 +18,6 @@ export default function LandingPage() {
                                 <p className="subheading">Search by specific muscle groups & find workout plans that actually work</p>
                             </div>
                             <div className="button-group">
-                                <Link to={"/workoutPlans"} className="primary-button">Find Workouts</Link>
                                 <button className="primary-button" onClick={() => navigate('/workoutPlans')}>Find Workout Plans</button>
                                 <button className="secondary-button">Target Specific Muscle Groups</button>
                             </div>
