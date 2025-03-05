@@ -10,7 +10,7 @@ export default function Exercise() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:3000/api/exercises/${muscle}`)
+            await fetch(`http://localhost:8080/api/exercises/${muscle}`)
             .then(response => response.json())
             .then(data => setExercises(data))
         } catch (err) {

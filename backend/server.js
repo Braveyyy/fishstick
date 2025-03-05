@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 // Dotenv = a module that loads environment variables from .env into process.env
 const dotenv = require('dotenv');
 
+const cors = require('cors');
+const request = require('request');
 // Create server hostname/port variables, express app instance
 const hostname = 'localhost';
 const port = 8080;
@@ -15,6 +17,7 @@ const app = express();
 // note: make sure to use dotenv.config() to load environment variables
 dotenv.config();
 // middleware (?)
+app.use(cors());
 app.use(express.json());
 
 // Route: Get exercises for a specific muscle
