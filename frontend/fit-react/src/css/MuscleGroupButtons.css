@@ -1,0 +1,22 @@
+
+button {
+    margin: '5px';
+    padding: '10px 15px';
+    border: 'none';
+    border-radius: '5px';
+    cursor: 'pointer';
+}
+.muscleSelectorDiv {
+    padding: '20px';
+}
+.muscleGroupButtonsDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.musclesFoundDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
