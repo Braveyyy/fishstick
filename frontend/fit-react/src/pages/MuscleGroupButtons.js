@@ -22,16 +22,15 @@ export default function MuscleGroupButtons() {
     }
   };
   return (
-    <div className='muscleSelectorDiv'>
-      <h2>Select a Muscle Group:</h2>
-      <div className='muscleGroupButtonsDiv'>
+    <div className='muscle-selector-main-content'>
+      <div className='muscle-buttons-div'>
         {muscleGroups.map((muscle) => (
-          <button key={muscle} onClick={() => handleSearch(muscle)} style={{backgroundColor: activeMuscle === muscle ? '#add8e6' : '#f0f0f0'}}>
+          <button key={muscle} onClick={() => handleSearch(muscle)}>
             {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
           </button>
         ))}
       </div>
-      <div className='musclesFoundDiv'>
+      <div className='muscles-found-div'>
         {activeMuscle && (
           <>
             <ul>

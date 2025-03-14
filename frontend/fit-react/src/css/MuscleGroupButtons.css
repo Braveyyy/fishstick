@@ -1,22 +1,28 @@
 
 button {
-    margin: '5px';
-    padding: '10px 15px';
-    border: 'none';
-    border-radius: '5px';
-    cursor: 'pointer';
+    border-style: ridge;
+    border-radius: 10px;
+    border-width: 5px;
+    padding: 30px;
+    flex: 1 1 calc(25% - 10px);
+    max-width: calc(25% - 10px);
+    font-size: 20px;
 }
-.muscleSelectorDiv {
-    padding: '20px';
+button:hover {
+    background-color: cornflowerblue;
 }
-.muscleGroupButtonsDiv {
-    display: flex;
+.muscle-selector-main-content {
+    display: grid;
     justify-content: center;
     align-items: center;
 }
-.musclesFoundDiv {
+.muscle-buttons-div {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
     align-items: center;
+}
+.muscles-found-div {
     text-align: left;
 }

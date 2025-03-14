@@ -3,8 +3,7 @@ import MuscleGroupButtons from "./MuscleGroupButtons";
 
 export default function Exercise() {
     return(
-        <div className="flex-container flex-column min-screen-height">
-
+        <>
             <header className="header-container">    
                 <span className="site-name">Fishstick</span>
             </header>
@@ -23,6 +22,6 @@ export default function Exercise() {
                     <a className="footer-link" href="mailto:adamaouaj01@gmail.com">Contact</a>
                 </nav>
             </footer>
-        </div>
+        </>
     );
 }
