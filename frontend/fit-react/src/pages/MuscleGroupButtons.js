@@ -25,7 +25,7 @@ export default function MuscleGroupButtons() {
     <div className='muscle-selector-main-content'>
       <div className='muscle-buttons-div'>
         {muscleGroups.map((muscle) => (
-          <button key={muscle} onClick={() => handleSearch(muscle)}>
+          <button className="muscleGroupButton" key={muscle} onClick={() => handleSearch(muscle)}>
             {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
           </button>
         ))}

@@ -1,5 +1,5 @@
 
-button {
+.muscleGroupButton {
     border-style: ridge;
     border-radius: 10px;
     border-width: 5px;
@@ -24,5 +24,8 @@ button:hover {
     align-items: center;
 }
 .muscles-found-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: left;
 }
