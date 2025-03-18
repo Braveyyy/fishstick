@@ -24,11 +24,35 @@ export default function MuscleGroupButtons() {
   return (
     <div className='muscle-selector-main-content'>
       <div className='muscle-buttons-div'>
-        {muscleGroups.map((muscle) => (
-          <button className="muscleGroupButton" key={muscle} onClick={() => handleSearch(muscle)}>
-            {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
-          </button>
-        ))}
+        <div className='muscle-group-column'>
+          <h3>Upper Body</h3>
+          <div className='upper-body-buttons'>
+            <button className='muscleGroupButton' onClick={() => handleSearch('chest')}>Chest</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('lats')}>Lats</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('middle_back')}>Middle Back</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('lower_back')}>Lower Back</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('neck')}>Neck</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('traps')}>Traps</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('biceps')}>Biceps</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('triceps')}>Triceps</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('forearms')}>Forearms</button>
+          </div>
+        </div>
+        <div className='muscle-group-column'>
+          <h3>Lower Body</h3>
+          <div className='lower-body-buttons'>
+            <button className='muscleGroupButton' onClick={() => handleSearch('quadriceps')}>Quadriceps</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('hamstrings')}>Hamstrings</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('glutes')}>Glutes</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('calves')}>Calves</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('abductors')}>Abductors</button>
+            <button className='muscleGroupButton' onClick={() => handleSearch('adductors')}>Adductors</button>
+          </div>
+          <h3>Core</h3>
+          <div className='abodminal-cardio-buttons'>
+            <button className='muscleGroupButton' onClick={() => handleSearch('abdominals')}>Abdominals</button>
+          </div>
+        </div>
       </div>
       <div className='muscles-found-div'>
         {activeMuscle && (

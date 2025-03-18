@@ -2,11 +2,10 @@
 .muscleGroupButton {
     border-style: ridge;
     border-radius: 10px;
-    border-width: 5px;
+    border-width: 2px;
     padding: 30px;
-    flex: 1 1 calc(25% - 10px);
-    max-width: calc(25% - 10px);
     font-size: 20px;
+    width: 100%;
 }
 button:hover {
     background-color: cornflowerblue;
@@ -17,15 +16,35 @@ button:hover {
     align-items: center;
 }
 .muscle-buttons-div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);    
+    gap: 20px;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    width: 100%;
 }
 .muscles-found-div {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: left;
+}
+
+.muscle-group-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.muscle-group-column h3 {
+    text-align: center;
+}
+
+.upper-body-buttons, .lower-body-buttons, .abodminal-cardio-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
 }
