@@ -9,7 +9,6 @@ export default function Exercise() {
             </header>
             <main className="main-content">
                 <section className="intro-section">
-                    <h1 className="main-heading">Search for Exercises by Muscle Group</h1>
                     <div className="search-container">
                         <MuscleGroupButtons></MuscleGroupButtons>
                     </div>

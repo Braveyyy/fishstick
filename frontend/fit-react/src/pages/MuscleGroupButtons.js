@@ -1,76 +1,109 @@
-import React, { useState } from 'react';
-import "../css/MuscleGroupButtons.css";
+"use client"
 
-export default function MuscleGroupButtons() {
-  const muscleGroups = ['abdominals', 'abductors', 'adductors', 'biceps', 'calves', 'chest', 'forearms', 'glutes', 'hamstrings', 'lats', 'lower_back', 'middle_back', 'neck', 'quadriceps', 'traps', 'triceps'];
-  const [exercises, setExercises] = useState([]);
-  const [activeMuscle, setActiveMuscle] = useState(null);
+import { useState } from "react"
+import "../css/MuscleGroupButtons.css"
+
+// Organized muscle groups by category
+const muscleGroups = {
+  "Upper Body": ["chest", "lats", "middle_back", "lower_back", "neck", "traps", "biceps", "triceps", "forearms"],
+  "Lower Body": ["quadriceps", "hamstrings", "glutes", "calves", "abductors", "adductors"],
+  Core: ["abdominals"],
+}
+
+export default function MuscleGroupSearch() {
+  const [exercises, setExercises] = useState([])
+  const [activeMuscle, setActiveMuscle] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
   const handleSearch = async (muscle) => {
-    setActiveMuscle(muscle);
+    setActiveMuscle(muscle)
     try {
-      const response = await fetch(`http://localhost:8080/api/exercises/${muscle}`);
+      const response = await fetch(`http://localhost:8080/api/exercises/${muscle}`)
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Error: ${response.status} ${errorText}`);
-        return;
+        const errorText = await response.text()
+        console.error(`Error: ${response.status} ${errorText}`)
+        return
       }
-      const data = await response.json();
-      setExercises(data);
+      const data = await response.json()
+      setExercises(data)
     } catch (error) {
-      console.error('Error fetching exercises:', error);
+      console.error("Error fetching exercises:", error)
     }
-  };
+  }
+
+  // Filter muscle groups based on search term
+  const getFilteredMuscleGroups = () => {
+    return Object.entries(muscleGroups).reduce((acc, [category, muscles]) => {
+      const filteredMuscles = muscles.filter((muscle) => muscle.toLowerCase().includes(searchTerm.toLowerCase()))
+      if (filteredMuscles.length > 0) {
+        acc[category] = filteredMuscles
+      }
+      return acc
+    }, {})
+  }
+
+  const filteredMuscleGroups = getFilteredMuscleGroups()
+
   return (
-    <div className='muscle-selector-main-content'>
-      <div className='muscle-buttons-div'>
-        <div className='muscle-group-column'>
-          <h3>Upper Body</h3>
-          <div className='upper-body-buttons'>
-            <button className='muscleGroupButton' onClick={() => handleSearch('chest')}>Chest</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('lats')}>Lats</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('middle_back')}>Middle Back</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('lower_back')}>Lower Back</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('neck')}>Neck</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('traps')}>Traps</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('biceps')}>Biceps</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('triceps')}>Triceps</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('forearms')}>Forearms</button>
-          </div>
-        </div>
-        <div className='muscle-group-column'>
-          <h3>Lower Body</h3>
-          <div className='lower-body-buttons'>
-            <button className='muscleGroupButton' onClick={() => handleSearch('quadriceps')}>Quadriceps</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('hamstrings')}>Hamstrings</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('glutes')}>Glutes</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('calves')}>Calves</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('abductors')}>Abductors</button>
-            <button className='muscleGroupButton' onClick={() => handleSearch('adductors')}>Adductors</button>
-          </div>
-          <h3>Core</h3>
-          <div className='abodminal-cardio-buttons'>
-            <button className='muscleGroupButton' onClick={() => handleSearch('abdominals')}>Abdominals</button>
-          </div>
-        </div>
+    <div className="muscle-selector-main-content">
+      <h1 className="muscle-search-title">Exercise Search by Muscle Group</h1>
+
+      {/* Search input */}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search muscle groups..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="muscle-search-input"
+        />
+        <button className="search-button">Search</button>
       </div>
-      <div className='muscles-found-div'>
-        {activeMuscle && (
-          <>
-            <ul>
+
+      <div className="muscle-search-layout">
+        {/* Muscle groups section */}
+        <div className="muscle-buttons-div">
+          {Object.entries(filteredMuscleGroups).map(([category, muscles]) => (
+            <div key={category} className="muscle-group-column">
+              <h3>{category}</h3>
+              <div className={`${category.toLowerCase().replace(" ", "-")}-buttons`}>
+                {muscles.map((muscle) => (
+                  <button
+                    key={muscle}
+                    className={`muscleGroupButton ${activeMuscle === muscle ? "active" : ""}`}
+                    onClick={() => handleSearch(muscle)}
+                  >
+                    {muscle.replace("_", " ")}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Exercise results section */}
+        <div className="muscles-found-div">
+          {activeMuscle ? (
+            <div className="exercise-results">
+              <h3>Exercises for {activeMuscle.replace("_", " ")}</h3>
               {exercises.length > 0 ? (
-                exercises.map((exercise) => (
-                  <li key={exercise.id}>
-                    <strong>{exercise.name}</strong> — {exercise.equipment}
-                  </li>
-                ))
+                <ul className="exercise-list">
+                  {exercises.map((exercise) => (
+                    <li key={exercise.id} className="exercise-item">
+                      <strong>{exercise.name}</strong> — {exercise.equipment}
+                    </li>
+                  ))}
+                </ul>
               ) : (
                 <p>No exercises found for {activeMuscle}</p>
               )}
-            </ul>
-          </>
-        )}
+            </div>
+          ) : (
+            <p>Please select a muscle group to see exercises</p>
+          )}
+        </div>
       </div>
     </div>
-  );
+  )
 }
+
