@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../css/MuscleGroupButtons.css";
+import Button from '@mui/material/Button';
 
 export default function MuscleGroupButtons() {
   const muscleGroups = ['abdominals', 'abductors', 'adductors', 'biceps', 'calves', 'chest', 'forearms', 'glutes', 'hamstrings', 'lats', 'lower_back', 'middle_back', 'neck', 'quadriceps', 'traps', 'triceps'];
@@ -27,6 +28,7 @@ export default function MuscleGroupButtons() {
         <div className='muscle-group-column'>
           <h3>Upper Body</h3>
           <div className='upper-body-buttons'>
+            <Button variant='contained' size='large' onClick={() => handleSearch('chest')}>Chest</Button>;
             <button className='muscleGroupButton' onClick={() => handleSearch('chest')}>Chest</button>
             <button className='muscleGroupButton' onClick={() => handleSearch('lats')}>Lats</button>
             <button className='muscleGroupButton' onClick={() => handleSearch('middle_back')}>Middle Back</button>

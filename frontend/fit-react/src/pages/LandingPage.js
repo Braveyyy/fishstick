@@ -5,6 +5,9 @@ export default function LandingPage() {
     const navigate = useNavigate();
     return(
         <div className="flex-container flex-column min-screen-height">
+            <head>
+                <meta name="viewport" content="initial-scale=1, width=device-width" />
+            </head>
             <header className="header-container">    
                 <span className="site-name">Fishstick</span>
             </header>

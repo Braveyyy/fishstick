@@ -1,7 +1,6 @@
+import * as React from 'react';
+import Button from '@mui/material/Button';
 
-
-export default function WorkoutPlans() {
-    return(
-        <p>Workoutin</p>
-    );
+export default function ButtonUsage() {
+  return <Button variant="outlined">Hello world</Button>;
 }
