@@ -1,12 +1,12 @@
 .navigation {
-    margin-left: auto;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-link {
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: #000;
-  }
+  margin-left: auto;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000;
+}
