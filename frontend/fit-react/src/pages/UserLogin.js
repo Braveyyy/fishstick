@@ -3,23 +3,21 @@ import { useState } from 'react';
 import '../css/UserLogin.css';
 
 export default function UserLogin() {
-    const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({ email: "", password: "" });
+    const [errors, setErrors] = useState({ username: "", password: "" });
 
     const validateLogin = () => {
         let valid = true;
-        const loginErrors = { email : "", password: ""};
+        const loginErrors = { username : "", password: ""};
 
-        // Check Email validity
-        if(!email) {
-            loginErrors.email = "Email is required";
+        // Check Username validty
+        if(!username) {
+            loginErrors.username = "Username is required";
             valid = false;
         }
-        else if(!/\S+@\S+\.\S+/.test(email)) {
-            loginErrors.email = "Invalid email";
+        else if(false) {
+            // check if username already in database
             valid = false;
         }
         // Check Password validity
@@ -29,6 +27,10 @@ export default function UserLogin() {
         }
         else if(password.length < 3) {
             loginErrors.password = "Password must be at least 3 characters";
+            valid = false;
+        }
+        else if(false) {
+            // check if password matches in database
             valid = false;
         }
 
@@ -56,23 +58,23 @@ export default function UserLogin() {
 
                     <form onSubmit={handleLogin} className='login-form'>
                         <div className="form-group">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="username">Username</label>
                             <input
-                                type="email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Enter your email"
-                                className={errors.email ? "error" : ""}
+                                type="username"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Enter your username"
+                                className={errors.username ? "error" : ""}
                             />
-                            {errors.email && <span className="error-message">{errors.email}</span>}
+                            {errors.username && <span className="error-message">{errors.username}</span>}
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <div className="password-input">
                                 <input
-                                    type={showPassword ? "text" : "password"}
+                                    type={"password"}
                                     id="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -96,7 +98,7 @@ export default function UserLogin() {
                         </button>
                     </form>
                     <div className="login-footer">
-                        <p>Don't have an account? <a href="#">Sign up</a></p>
+                        <p>Don't have an account? <a href="/userSignup">Sign up</a></p>
                     </div>
                 </div>
             </div>

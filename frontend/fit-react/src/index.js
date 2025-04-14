@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import WorkoutPlans from './pages/WorkoutPlans';
 import Exercise from './pages/Exercises';
 import UserLogin from './pages/UserLogin';
+import UserSignup from './pages/UserSignup';
 //import reportWebVitals from './reportWebVitals';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="userSignup" element={<UserSignup/>}></Route>
         <Route path="userLogin" element={<UserLogin/>}></Route>
         <Route path="workoutPlans" element={<WorkoutPlans/>}></Route>
         <Route path="exercises" element={<Exercise/>}></Route>
