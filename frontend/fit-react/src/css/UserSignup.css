@@ -140,7 +140,7 @@
     width: auto;
     gap: 8px;
   }
-  
+
   .signup-button:hover {
     background-color: var(--primary-hover);
   }

@@ -50,3 +50,5 @@ router.post("/", async (req, res) => {
 // Update a User's userame
 
 // Remove a User
+
+module.exports = router;

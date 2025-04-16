@@ -7,6 +7,7 @@ export default function UserSignup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({ email: "", password: "" });
+    const [successfulSignup, setSuccessfulSignup] = useState(false);
 
     const validateSignup = () => {
         let valid = true;
@@ -45,13 +46,29 @@ export default function UserSignup() {
         return valid;
     }
 
-    const handleSignup = (e) => {
-        e.preventDefault();
+    const handleSignup = async (event) => {
+        event.preventDefault();
         if(validateSignup()) {
-            // backend API (TBA)
+            try {
+                const newUser = {email: email, username: username, password: password};
+                const response = await fetch("http://localhost:8080/api/users", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(newUser)
+                });
+                if(!response.ok) {
+                    console.error(`Error: ${response.status} ${await response.text()}`);
+                    return;
+                }
+                setSuccessfulSignup(true);
+            } catch (error) {
+                console.error('Error handling signup:', error);
+            }
         }
     }
-    
+    if(successfulSignup) {
+        return <SuccessfulSignup/>;
+    }
     return (
         <div className="signup-page">
             <div className='signup-container'>
@@ -111,6 +128,20 @@ export default function UserSignup() {
                     <div className="signup-footer">
                         <p>Already have an account? <a href="/userLogin">Log back in</a></p>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function SuccessfulSignup () {
+    return (
+        <div className="signup-page">
+            <div className="signup-container">
+                <div className="signup-card">
+                    <h1>Signup Successful!</h1>
+                    <p>Thank you for signing up. You can now log in to your account.</p>
+                    <button className="signup-button" onClick={() => window.location.href = "/userLogin"}>Back to Log In Page</button>
                 </div>
             </div>
         </div>
