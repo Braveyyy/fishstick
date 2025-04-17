@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
         res.status(200).json(userList);
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to fetch all users"});
+        res.status(500).json({ error: "!!FAILED TO FETCH ALL USERS"});
     }
 });
 
@@ -21,7 +21,7 @@ router.get("/username/:username", async (req, res) => {
         res.status(200).json(user);
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to fetch user by username"});
+        res.status(500).json({ error: "!!FAILED TO FETCH USER BY USERNAME"});
     }
 })
 
@@ -32,7 +32,7 @@ router.get("/email/:email", async (req, res) => {
         res.status(200).json(user);
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to fetch user by email"});
+        res.status(500).json({ error: "!!FAILED TO FETCH USER BY EMAIL"});
     }
 });
 
@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
         res.status(201).json(newUser);
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to create new user"});
+        res.status(500).json({ error: "!!FAILED TO CREATE NEW USER"});
     }
 }) 
 

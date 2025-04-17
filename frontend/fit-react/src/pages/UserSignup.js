@@ -49,7 +49,7 @@ export default function UserSignup() {
                 signupErrors.username = "Username already exists";
                 valid = false;
             }
-            
+
             // Check Password validity
             if(!password) {
                 signupErrors.password = "Password is required";
@@ -61,7 +61,7 @@ export default function UserSignup() {
             }
         }
         catch (error) {
-            console.error('Error fetching requests:', error);
+            console.error('!ERROR FETCHING REQUESTS:', error);
         }
         setErrors(signupErrors);
         return valid;
@@ -78,12 +78,12 @@ export default function UserSignup() {
                     body: JSON.stringify(newUser)
                 });
                 if(!response.ok) {
-                    console.error(`Error: ${response.status} ${await response.text()}`);
+                    console.error(`${response.status} ${await response.text()}`);
                     return;
                 }
                 setSuccessfulSignup(true);
             } catch (error) {
-                console.error('Error handling signup:', error);
+                console.error('!ERROR HANDLING SIGNUP:', error);
             }
         }
     }
