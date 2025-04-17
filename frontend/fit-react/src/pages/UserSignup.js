@@ -35,7 +35,7 @@ export default function UserSignup() {
                 signupErrors.email = "Invalid email";
                 valid = false;
             }
-            else if(emailResponse.ok && emailJSON && emailJSON.email == email) {
+            else if(emailResponse.ok && emailJSON && emailJSON.email === email) {
                 signupErrors.email = "Email already has an account created";
                 valid = false;
             }
@@ -45,7 +45,7 @@ export default function UserSignup() {
                 signupErrors.username = "Username is required";
                 valid = false;
             }
-            else if(usernameResponse.ok && usernameJSON && usernameJSON.username == username) {
+            else if(usernameResponse.ok && usernameJSON && usernameJSON.username === username) {
                 signupErrors.username = "Username already exists";
                 valid = false;
             }
