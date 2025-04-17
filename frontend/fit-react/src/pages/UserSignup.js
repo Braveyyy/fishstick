@@ -9,46 +9,67 @@ export default function UserSignup() {
     const [errors, setErrors] = useState({ email: "", password: "" });
     const [successfulSignup, setSuccessfulSignup] = useState(false);
 
-    const validateSignup = () => {
+    const validateSignup = async () => {
         let valid = true;
         const signupErrors = { email: "", password: ""};
-
-        // Check Email validity
-        if(!email) {
-            signupErrors.email = "Email is required";
-            valid = false;
-        }
-        else if(!/\S+@\S+\.\S+/.test(email)) {
-            signupErrors.email = "Invalid email";
-            valid = false;
-        }
-        // Check Username validity
-        if(!username) {
-            signupErrors.username = "Username is required";
-            valid = false;
-        }
-        else if(false) {
+        try {
+            // Check if email already in database
+            const emailResponse = await fetch("http://localhost:8080/api/users/email/" + email, {
+                method: "GET",
+                headers: {"Content-Type": "application/json"},
+            });
             // Check if username already in database
-            signupErrors.username = "Username already exists";
-            valid = false;
-        }
-        // Check Password validity
-        if(!password) {
-            signupErrors.password = "Password is required";
-            valid = false;
-        }
-        else if(password.length < 6) {
-            signupErrors.password = "Password must be at least 6 characters";
-            valid = false;
-        }
+            const usernameResponse = await fetch("http://localhost:8080/api/users/username/" + username, {
+                method: "GET",
+                headers: {"Content-Type": "application/json"},
+            });
+            const emailJSON = await emailResponse.json();
+            const usernameJSON = await usernameResponse.json();
 
+            // Check Email validity
+            if(!email) {
+                signupErrors.email = "Email is required";
+                valid = false;
+            }
+            else if(!/\S+@\S+\.\S+/.test(email)) {
+                signupErrors.email = "Invalid email";
+                valid = false;
+            }
+            else if(emailResponse.ok && emailJSON && emailJSON.email == email) {
+                signupErrors.email = "Email already has an account created";
+                valid = false;
+            }
+
+            // Check Username validity
+            if(!username) {
+                signupErrors.username = "Username is required";
+                valid = false;
+            }
+            else if(usernameResponse.ok && usernameJSON && usernameJSON.username == username) {
+                signupErrors.username = "Username already exists";
+                valid = false;
+            }
+            
+            // Check Password validity
+            if(!password) {
+                signupErrors.password = "Password is required";
+                valid = false;
+            }
+            else if(password.length < 6) {
+                signupErrors.password = "Password must be at least 6 characters";
+                valid = false;
+            }
+        }
+        catch (error) {
+            console.error('Error fetching requests:', error);
+        }
         setErrors(signupErrors);
         return valid;
     }
 
     const handleSignup = async (event) => {
         event.preventDefault();
-        if(validateSignup()) {
+        if(await validateSignup()) {
             try {
                 const newUser = {email: email, username: username, password: password};
                 const response = await fetch("http://localhost:8080/api/users", {

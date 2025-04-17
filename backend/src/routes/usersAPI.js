@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get a specific User by username
-router.get("/:username", async (req, res) => {
+router.get("/username/:username", async (req, res) => {
     try {
         const user = await User.findOne({username: req.params.username});
         res.status(200).json(user);
@@ -26,7 +26,7 @@ router.get("/:username", async (req, res) => {
 })
 
 // Get a specific User by email
-router.get("/:email", async (req, res) => {
+router.get("/email/:email", async (req, res) => {
     try {
         const user = await User.findOne({email: req.params.email});
         res.status(200).json(user);
