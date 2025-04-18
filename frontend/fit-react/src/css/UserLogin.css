@@ -166,6 +166,10 @@
   text-decoration: underline;
 }
 
+.question-buttons {
+  display: flex;
+}
+
 @media (max-width: 480px) {
   .login-card {
     padding: 24px;
