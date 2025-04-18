@@ -142,10 +142,39 @@ function SuccessfulLoginFirstTime() {
     const [errors, setErrors] = useState({ numWorkoutDays: "", targetedMuscleGroup: "", requestedRestDays: ""});
     const [numWorkoutDays, setNumWorkoutDays] = useState(0);
     const [targetedMuscleGroup, setTargetedMuscleGroup] = useState("");
-    const [requestedRestDays, setRequestedRestDays] = useState({});
+    const [requestedRestDays, setRequestedRestDays] = useState([]);
 
-    const handleQuestions = () => {
+    const validateQuestions = () => {
+        let valid = true;
+        const questionErrors = { numWorkoutDays: "", targetedMuscleGroup: "", requestedRestDays: "" };
+        
+        if(!numWorkoutDays) {
+            questionErrors.numWorkoutDays = "Please select the number of days you want to workout";
+            valid = false;
+        }
+        if(!targetedMuscleGroup) {
+            questionErrors.targetedMuscleGroup = "Please select what you want to focus on";
+            valid = false;
+        }
+        if(!requestedRestDays || requestedRestDays.length === 0) {
+            questionErrors.requestedRestDays = "Please select at least one rest day";
+            valid = false;
+        }
 
+        if((7 - numWorkoutDays) !== requestedRestDays.length) {
+            questionErrors.requestedRestDays = `Please select ${(7 - numWorkoutDays)} rest days`;
+            valid = false;
+        }
+
+        setErrors(questionErrors);
+        return valid;
+    }
+    const handleQuestions = (event) => {
+        console.log("Requested Rest Days: ", requestedRestDays);
+        event.preventDefault();
+        if(validateQuestions()) {
+            
+        }
     }
 
     return (
@@ -164,53 +193,53 @@ function SuccessfulLoginFirstTime() {
                                     id='numWorkoutDays'
                                     value='1'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 1 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='2'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 2 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='3'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 3 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='4'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 4 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='5'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 5 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='6'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 6 ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='numWorkoutDays'
                                     value='7'
                                     onClick={(e) => setNumWorkoutDays(Number(e.target.value))}
-                                    className={errors.numWorkoutDays ? "error" : ""}
+                                    className={numWorkoutDays === 7 ? "selected" : ""}
                                 />
                             </div>
                             {errors.numWorkoutDays && <span className='error-message'>{errors.numWorkoutDays}</span>}
-                            <br></br> <br></br>
+                            <br></br><br></br>
                         </div>
                         <div className='form-group'>
                             <label htmlFor='targetedMuscleGroup'>Is there a specific muscle group you want to target?</label>
@@ -220,42 +249,51 @@ function SuccessfulLoginFirstTime() {
                                     id='targetedMuscleGroup'
                                     value='Chest'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Chest' ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='targetedMuscleGroup'
                                     value='Back'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Back' ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='targetedMuscleGroup'
                                     value='Arms'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Arms' ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='targetedMuscleGroup'
                                     value='Shoulders'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Shoulders' ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='targetedMuscleGroup'
                                     value='Abs'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Abs' ? "selected" : ""}
                                 />
                                 <input 
                                     type='button'
                                     id='targetedMuscleGroup'
                                     value='Legs'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
-                                    className={errors.targetedMuscleGroup ? "error" : ""}
+                                    className={targetedMuscleGroup === 'Legs' ? "selected" : ""}
+                                />
+                            </div>
+                            <div className='everything-button'>
+                                <input 
+                                    type='button'
+                                    id='targetedMuscleGroup'
+                                    value='All Muscles'
+                                    onClick={(e) => setTargetedMuscleGroup(e.target.value)}
+                                    className={targetedMuscleGroup === 'All Muscles' ? "selected" : ""}
                                 />
                             </div>
                             {errors.targetedMuscleGroup && <span className='error-message'>{errors.targetedMuscleGroup}</span>}
@@ -267,12 +305,58 @@ function SuccessfulLoginFirstTime() {
                                 <input 
                                     type='button'
                                     id='requestedRestDays'
-                                    value='Monday'
-                                    onClick={(e) => setRequestedRestDays(e.target.value)}
-                                    className={errors.requestedRestDays ? "error" : ""}
+                                    value='Mon'
+                                    onClick={requestedRestDays.includes('Mon') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Mon')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Mon') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Tues'
+                                    onClick={requestedRestDays.includes('Tues') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Tues')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Tues') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Wed'
+                                    onClick={requestedRestDays.includes('Wed') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Wed')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Wed') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Thurs'
+                                    onClick={requestedRestDays.includes('Thurs') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Thurs')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Thurs') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Fri'
+                                    onClick={requestedRestDays.includes('Fri') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Fri')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Fri') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Sat'
+                                    onClick={requestedRestDays.includes('Sat') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Sat')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Sat') ? "selected" : ""}
+                                />
+                                <input 
+                                    type='button'
+                                    id='requestedRestDays'
+                                    value='Sun'
+                                    onClick={requestedRestDays.includes('Sun') ? () => setRequestedRestDays(requestedRestDays.filter(day => day !== 'Sun')) : (e) => setRequestedRestDays([...requestedRestDays, e.target.value])}
+                                    className={requestedRestDays.includes('Sun') ? "selected" : ""}
                                 />
                             </div>
+                            {errors.requestedRestDays && <span className='error-message'>{errors.requestedRestDays}</span>}
                         </div>
+                        <button type="submit" className="signup-button">
+                            Proceed
+                        </button>
                     </form>
                 </div>
             </div>

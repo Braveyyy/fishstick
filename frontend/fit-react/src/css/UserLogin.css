@@ -78,12 +78,17 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--primary-color);
+  border-color: var(--primary-hover);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
 .form-group input.error {
   border-color: var(--error-color);
+}
+
+.form-group input.selected {
+  outline: none;
+  border-color: var(--primary-color);
 }
 
 .error-message {
