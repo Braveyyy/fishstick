@@ -175,6 +175,10 @@
   display: flex;
 }
 
+.info-message {
+  font-size: 1px;
+}
+
 @media (max-width: 480px) {
   .login-card {
     padding: 24px;

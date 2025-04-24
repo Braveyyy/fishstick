@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import '../css/UserLogin.css';
 
@@ -144,6 +145,12 @@ function SuccessfulLoginFirstTime() {
     const [targetedMuscleGroup, setTargetedMuscleGroup] = useState("");
     const [requestedRestDays, setRequestedRestDays] = useState([]);
 
+    useEffect(() => {
+        if(numWorkoutDays <= 3) {
+            setTargetedMuscleGroup("All Muscles");
+        }
+    }, [numWorkoutDays]);
+
     const validateQuestions = () => {
         let valid = true;
         const questionErrors = { numWorkoutDays: "", targetedMuscleGroup: "", requestedRestDays: "" };
@@ -250,6 +257,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Chest'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Chest' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                                 <input 
                                     type='button'
@@ -257,6 +265,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Back'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Back' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                                 <input 
                                     type='button'
@@ -264,6 +273,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Arms'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Arms' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                                 <input 
                                     type='button'
@@ -271,6 +281,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Shoulders'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Shoulders' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                                 <input 
                                     type='button'
@@ -278,6 +289,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Abs'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Abs' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                                 <input 
                                     type='button'
@@ -285,6 +297,7 @@ function SuccessfulLoginFirstTime() {
                                     value='Legs'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'Legs' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                             </div>
                             <div className='everything-button'>
@@ -294,9 +307,13 @@ function SuccessfulLoginFirstTime() {
                                     value='All Muscles'
                                     onClick={(e) => setTargetedMuscleGroup(e.target.value)}
                                     className={targetedMuscleGroup === 'All Muscles' ? "selected" : ""}
+                                    disabled={numWorkoutDays <= 3}
                                 />
                             </div>
                             {errors.targetedMuscleGroup && <span className='error-message'>{errors.targetedMuscleGroup}</span>}
+                            {numWorkoutDays <= 3 && (
+                                <p className='info-message'>Please add extra workout days if you would like to spend more time targeting a specific muscle group</p>
+                            )}
                             <br></br><br></br>
                         </div>
                         <div className='form-group'>
