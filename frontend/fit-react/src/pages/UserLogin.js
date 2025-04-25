@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import '../css/UserLogin.css';
+import WorkoutPlan from '../modules/WorkoutPlan.js';
 
 export default function UserLogin() {
     const [username, setUsername] = useState("");
@@ -144,6 +145,7 @@ function SuccessfulLoginFirstTime() {
     const [numWorkoutDays, setNumWorkoutDays] = useState(0);
     const [targetedMuscleGroup, setTargetedMuscleGroup] = useState("");
     const [requestedRestDays, setRequestedRestDays] = useState([]);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     useEffect(() => {
         if(numWorkoutDays <= 3) {
@@ -176,12 +178,18 @@ function SuccessfulLoginFirstTime() {
         setErrors(questionErrors);
         return valid;
     }
+    
     const handleQuestions = (event) => {
-        console.log("Requested Rest Days: ", requestedRestDays);
         event.preventDefault();
         if(validateQuestions()) {
-            
+            setFormSubmitted(true);
         }
+    }
+
+    if(formSubmitted) {
+        return (
+            <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
+        )
     }
 
     return (
