@@ -1,11 +1,25 @@
 import React from 'react';
+import '../css/WorkoutPlan.css';
 
 const generateWorkout = (numWorkoutDays, targetedGroup, restDays) => {
     const allDays = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
-    const availableDays = allDays.filter(day => !restDays.includes(day)).slice(0, numWorkoutDays);
+    const workoutDays = allDays.filter(day => !restDays.includes(day)).slice(0, numWorkoutDays);
+
+    // Create a base schedule with all days
+    const schedule = allDays.map(day => ({
+        day,
+        focus: restDays.includes(day) ? 'Rest' : null
+    }));
 
     if (numWorkoutDays <= 3) {
-        return availableDays.map(day => ({ day, focus: 'Full Body' }));
+        let workoutIndex = 0;
+        for (let i = 0; i < schedule.length && workoutIndex < workoutDays.length; i++) {
+            if (schedule[i].focus === null) {
+                schedule[i].focus = 'Full Body';
+                workoutIndex++;
+            }
+        }
+        return schedule;
     }
 
     const foundational = ['Chest', 'Back', 'Legs'];
@@ -30,36 +44,51 @@ const generateWorkout = (numWorkoutDays, targetedGroup, restDays) => {
     });
 
     const trimmedPriorityList = priorityList.slice(0, numWorkoutDays);
-    const schedule = [];
+    let focusIndex = 0;
 
-    for (let i = 0; i < availableDays.length; i++) {
-        let muscle = trimmedPriorityList[i];
+    for (let i = 0; i < schedule.length && focusIndex < numWorkoutDays; i++) {
+        if (schedule[i].focus === null) {
+            let muscle = trimmedPriorityList[focusIndex];
 
-        if (schedule.length > 0 && schedule[schedule.length - 1].focus === muscle) {
-            for (let j = i + 1; j < trimmedPriorityList.length; j++) {
-                if (trimmedPriorityList[j] !== muscle) {
-                    [trimmedPriorityList[i], trimmedPriorityList[j]] = [trimmedPriorityList[j], trimmedPriorityList[i]];
-                    muscle = trimmedPriorityList[i];
-                    break;
+            if (i > 0 && schedule[i - 1].focus === muscle) {
+                for (let j = focusIndex + 1; j < trimmedPriorityList.length; j++) {
+                    if (trimmedPriorityList[j] !== muscle) {
+                        [trimmedPriorityList[focusIndex], trimmedPriorityList[j]] = [trimmedPriorityList[j], trimmedPriorityList[focusIndex]];
+                        muscle = trimmedPriorityList[focusIndex];
+                        break;
+                    }
                 }
             }
-        }
 
-        schedule.push({ day: availableDays[i], focus: muscle });
+            schedule[i].focus = muscle;
+            focusIndex++;
+        }
     }
 
     return schedule;
 };
-/*{workoutPlan.map((day) => (
-                        <div key={day.day}>
-                            <p>{day.day}: {day.focus}</p>
-                        </div>
-                    ))} */
+
+
 export default function WorkoutPlan({workoutDays, targetedGroup, restDays}) {
     const workoutPlan = generateWorkout(workoutDays, targetedGroup, restDays);
     return (
-        <div className='workout-container'>
-            
+        <div className="workout-plan-container">
+            <div className="plan-summary">
+                <div className="summary-header">
+                    <h2>We Generated A Workout Plan For You!</h2>
+                </div>
+                <div className="days-preview-row">
+                    {workoutPlan.map((day, index) => {
+                        const isRestDay = typeof day.focus === "string" && (day.focus.includes("Rest") || day.focus.includes("Recovery"));
+                        return (
+                            <div key={index} className={`day-row-item ${isRestDay ? "rest-day" : "workout-day"}`}>
+                                <div className="day-name">{day.day.substring(0, 3)}</div>
+                                <div className="day-focus-label">{day.focus}</div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         </div>
     );
 }

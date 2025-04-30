@@ -1,0 +1,95 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --success-color: #10b981;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --card-bg: #ffffff;
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.plan-summary {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 24px;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.summary-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.days-preview-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 8px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f1f1f1;
+}
+
+.days-preview-row::-webkit-scrollbar {
+    height: 6px;
+}
+
+.days-preview-row::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.days-preview-row::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.day-row-item {
+    flex: 0 0 auto;
+    width: 160px;
+    border-radius: 10px;
+    padding: 16px;
+    color: white;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.day-row-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.day-row-item.workout-day {
+    background: linear-gradient(135deg, #4f46e5, #3730a3);
+}
+
+.day-row-item.rest-day {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.day-row-item .day-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.day-row-item .day-focus-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+    .summary-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
