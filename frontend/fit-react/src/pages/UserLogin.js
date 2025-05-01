@@ -188,7 +188,11 @@ function SuccessfulLoginFirstTime() {
 
     if(formSubmitted) {
         return (
-            <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
+            <div>
+                <h1>Generated Workout Plan</h1>
+                <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
+                <button onClick={() => setFormSubmitted(true)} className="signup-button">Proceed</button>
+            </div>    
         )
     }
 

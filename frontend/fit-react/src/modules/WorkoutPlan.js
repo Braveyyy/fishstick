@@ -74,9 +74,6 @@ export default function WorkoutPlan({workoutDays, targetedGroup, restDays}) {
     return (
         <div className="workout-plan-container">
             <div className="plan-summary">
-                <div className="summary-header">
-                    <h2>We Generated A Workout Plan For You!</h2>
-                </div>
                 <div className="days-preview-row">
                     {workoutPlan.map((day, index) => {
                         const isRestDay = typeof day.focus === "string" && (day.focus.includes("Rest") || day.focus.includes("Recovery"));
