@@ -82,7 +82,8 @@ export default function UserSignup() {
                     return;
                 }
                 setSuccessfulSignup(true);
-            } catch (error) {
+            } 
+            catch (error) {
                 console.error('!ERROR HANDLING SIGNUP:', error);
             }
         }

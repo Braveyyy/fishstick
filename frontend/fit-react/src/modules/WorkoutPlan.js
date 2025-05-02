@@ -5,7 +5,6 @@ const generateWorkout = (numWorkoutDays, targetedGroup, restDays) => {
     const allDays = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
     const workoutDays = allDays.filter(day => !restDays.includes(day)).slice(0, numWorkoutDays);
 
-    // Create a base schedule with all days
     const schedule = allDays.map(day => ({
         day,
         focus: restDays.includes(day) ? 'Rest' : null

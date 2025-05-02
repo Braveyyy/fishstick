@@ -22,8 +22,10 @@ app.use(express.json());
 // API endpoints
 const exercises = require('./routes/exercisesAPI');
 const users = require('./routes/usersAPI');
+const workouts = require('./routes/workoutAPI');
 app.use('/api/exercises', exercises);
 app.use('/api/users', users);
+app.use('/api/workouts', workouts);
 
 // Database Connection
 const uri = process.env.MONGODB_URI;

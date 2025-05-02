@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import '../css/UserLogin.css';
 import WorkoutPlan from '../modules/WorkoutPlan.js';
+import { useUser } from '../modules/UserContext.js';
 
 export default function UserLogin() {
     const [username, setUsername] = useState("");
@@ -10,6 +11,7 @@ export default function UserLogin() {
     const [errors, setErrors] = useState({ username: "", password: "" });
     const [successfulLogin, setSuccessfulLogin] = useState(false);
     const [firstTimeLogin, setFirstTimeLogin] = useState(false);
+    const { setCurrentUser } = useUser();
 
     const validateLogin = async () => {
         let valid = true;
@@ -53,10 +55,8 @@ export default function UserLogin() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        console.log("LOGIN SUBMITTED")
         if(await validateLogin()) {
-            console.log("LOGIN VALIDATED")
-            try{
+            try {
                 const response = await fetch("http://localhost:8080/api/users/username/" + username, {
                     method: "GET",
                     headers: {"Content-Type": "application/json"},
@@ -65,15 +65,29 @@ export default function UserLogin() {
                 if(responseJSON.firstTimeLogin) {
                     setFirstTimeLogin(true);
                 }
+                setCurrentUser(responseJSON);
                 setSuccessfulLogin(true);
             }
             catch (error) {
-
+                console.error('!ERROR FETCHING REQUESTS:', error);
             }
         }
     }
 
+    const updateFirstTimeLogin = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/api/users/firstLogin/" + username, {
+                method: "PATCH",
+                headers: {"Content-Type": "application/json"},
+            });
+        }
+        catch (error) {
+            console.error('!ERROR PATCHING FIRST TIME LOGIN:', error);
+        }
+    }
+
     if(successfulLogin && firstTimeLogin) {
+        updateFirstTimeLogin();
         return <SuccessfulLoginFirstTime/>;
     }
     else if(successfulLogin && !firstTimeLogin) {
@@ -146,6 +160,7 @@ function SuccessfulLoginFirstTime() {
     const [targetedMuscleGroup, setTargetedMuscleGroup] = useState("");
     const [requestedRestDays, setRequestedRestDays] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const { currentUser } = useUser();
 
     useEffect(() => {
         if(numWorkoutDays <= 3) {
@@ -165,7 +180,7 @@ function SuccessfulLoginFirstTime() {
             questionErrors.targetedMuscleGroup = "Please select what you want to focus on";
             valid = false;
         }
-        if(!requestedRestDays || requestedRestDays.length === 0) {
+        if(!requestedRestDays || (requestedRestDays.length === 0 && numWorkoutDays !== 7)) {
             questionErrors.requestedRestDays = "Please select at least one rest day";
             valid = false;
         }
@@ -179,19 +194,41 @@ function SuccessfulLoginFirstTime() {
         return valid;
     }
     
-    const handleQuestions = (event) => {
+    const handleQuestions = async (event) => {
         event.preventDefault();
         if(validateQuestions()) {
-            setFormSubmitted(true);
+            try {
+                const newWorkout = {username: currentUser.username, numworkoutdays: numWorkoutDays, targetedmuscle: targetedMuscleGroup, requestedrestdays: requestedRestDays};
+                const response = await fetch("http://localhost:8080/api/workouts", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(newWorkout)
+                });
+                if(!response.ok) {
+                    console.error(`${response.status} ${await response.text()}`);
+                    return;
+                }
+                setFormSubmitted(true);
+            }
+            catch (error) {
+                console.error('!ERROR HANDLING SIGNUP:', error);
+            }
         }
     }
 
     if(formSubmitted) {
         return (
             <div>
-                <h1>Generated Workout Plan</h1>
-                <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
-                <button onClick={() => setFormSubmitted(true)} className="signup-button">Proceed</button>
+                <div className='login-header' style={{marginTop: "100px"}}>
+                    <h1>Your Workout Plan</h1>
+                    <p>Based on your goals & availability, we've generated a tailored workout plan just for you!</p>
+                </div>
+                <div className='login-page' style={{marginTop: "50px"}}>
+                    <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
+                </div>
+                <div style={{display: "flex", justifyContent: "center", marginTop: "50px"}}>
+                    <button onClick={() => window.location.href = "/dashboard"} className="signup-button">Proceed To Your Dashboard</button>
+                </div>
             </div>    
         )
     }
@@ -394,5 +431,17 @@ function SuccessfulLoginFirstTime() {
 }
 
 function SuccessfulLoginDefault() {
-    
+    const { currentUser } = useUser();
+
+    return (
+        <div className='login-page'>
+            <div className='login-container'>
+                <div className='login-header'>
+                    <h1>Welcome back, {currentUser.username}!</h1>
+                    <p>We're glad to see you again.</p>
+                </div>
+                <button onClick={() => window.location.href = "/dashboard"} className="signup-button">Proceed To Your Dashboard</button>
+            </div>
+        </div>
+    )
 }

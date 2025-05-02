@@ -1,4 +1,3 @@
-// Import Modules
 const express = require('express');
 const router = express.Router();
 const User = require("../models/UserModel");
@@ -45,7 +44,22 @@ router.post("/", async (req, res) => {
     catch (error) {
         res.status(500).json({ error: "!!FAILED TO CREATE NEW USER"});
     }
-}) 
+});
+
+// Change a User's first time login status to false
+router.patch("/firstLogin/:username", async (req, res) => {
+    try {
+        const user = await User.findOneAndUpdate(
+            { username: req.params.username },
+            { firstTimeLogin: false },
+            { new: true }
+        );
+        res.status(200).json(user);
+    }
+    catch (error) {
+        res.status(500).json({ error: "!!FAILED TO UPDATE FIRST LOGIN STATUS" });
+    }
+});
 
 // Update a User's userame
 
