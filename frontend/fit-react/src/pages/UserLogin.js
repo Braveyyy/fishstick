@@ -1,9 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useUser } from '../modules/UserContext.js';
 import '../css/UserLogin.css';
 import WorkoutPlan from '../modules/WorkoutPlan.js';
-import { useUser } from '../modules/UserContext.js';
+import FishstickContainer from './FishstickContainer.js';
 
 export default function UserLogin() {
     const [username, setUsername] = useState("");
@@ -227,7 +228,7 @@ function SuccessfulLoginFirstTime() {
                     <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: "50px"}}>
-                    <button onClick={() => window.location.href = "/dashboard"} className="signup-button">Proceed To Your Dashboard</button>
+                    <button onClick={() => window.location.href = "/fishstick"} className="signup-button">Proceed To Fishstick</button>
                 </div>
             </div>    
         )
@@ -434,14 +435,15 @@ function SuccessfulLoginDefault() {
     const { currentUser } = useUser();
 
     return (
-        <div className='login-page'>
+        <FishstickContainer currentLoggedInUser={currentUser}></FishstickContainer>
+        /*<div className='login-page'>
             <div className='login-container'>
                 <div className='login-header'>
                     <h1>Welcome back, {currentUser.username}!</h1>
                     <p>We're glad to see you again.</p>
                 </div>
-                <button onClick={() => window.location.href = "/dashboard"} className="signup-button">Proceed To Your Dashboard</button>
+                <button onClick={() => window.location.href = "/fishstick"} className="signup-button">Proceed To Fishstick</button>
             </div>
-        </div>
+        </div>*/
     )
 }
