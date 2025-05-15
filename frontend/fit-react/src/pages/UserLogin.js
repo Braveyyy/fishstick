@@ -1,10 +1,8 @@
-import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useUser } from '../modules/UserContext.js';
 import '../css/UserLogin.css';
 import WorkoutPlan from '../modules/WorkoutPlan.js';
-import FishstickContainer from './FishstickContainer.js';
+import { Link } from 'react-router-dom';
 
 export default function UserLogin() {
     const [username, setUsername] = useState("");
@@ -12,7 +10,6 @@ export default function UserLogin() {
     const [errors, setErrors] = useState({ username: "", password: "" });
     const [successfulLogin, setSuccessfulLogin] = useState(false);
     const [firstTimeLogin, setFirstTimeLogin] = useState(false);
-    const { setCurrentUser } = useUser();
 
     const validateLogin = async () => {
         let valid = true;
@@ -66,7 +63,6 @@ export default function UserLogin() {
                 if(responseJSON.firstTimeLogin) {
                     setFirstTimeLogin(true);
                 }
-                setCurrentUser(responseJSON);
                 setSuccessfulLogin(true);
             }
             catch (error) {
@@ -89,10 +85,10 @@ export default function UserLogin() {
 
     if(successfulLogin && firstTimeLogin) {
         updateFirstTimeLogin();
-        return <SuccessfulLoginFirstTime/>;
+        return <SuccessfulLoginFirstTime user={username}/>;
     }
     else if(successfulLogin && !firstTimeLogin) {
-        return <SuccessfulLoginDefault/>;
+        return <SuccessfulLoginDefault user={username}/>;
     }
 
     return (
@@ -133,14 +129,6 @@ export default function UserLogin() {
                             {errors.password && <span className="error-message">{errors.password}</span>}
                         </div>
 
-                        <div className="form-options">
-                            <div className="remember-me">
-                                <input type="checkbox" id="remember" />
-                                <label htmlFor="remember">Remember me</label>
-                            </div>
-                            <a href="#" className="forgot-password">Forgot password?</a>
-                        </div>
-
                         <button type="submit" className="login-button">
                             Sign In
                         </button>
@@ -155,13 +143,12 @@ export default function UserLogin() {
     );
 }
 
-function SuccessfulLoginFirstTime() {
+function SuccessfulLoginFirstTime({user}) {
     const [errors, setErrors] = useState({ numWorkoutDays: "", targetedMuscleGroup: "", requestedRestDays: ""});
     const [numWorkoutDays, setNumWorkoutDays] = useState(0);
     const [targetedMuscleGroup, setTargetedMuscleGroup] = useState("");
     const [requestedRestDays, setRequestedRestDays] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
-    const { currentUser } = useUser();
 
     useEffect(() => {
         if(numWorkoutDays <= 3) {
@@ -199,7 +186,7 @@ function SuccessfulLoginFirstTime() {
         event.preventDefault();
         if(validateQuestions()) {
             try {
-                const newWorkout = {username: currentUser.username, numworkoutdays: numWorkoutDays, targetedmuscle: targetedMuscleGroup, requestedrestdays: requestedRestDays};
+                const newWorkout = {username: user, numworkoutdays: numWorkoutDays, targetedmuscle: targetedMuscleGroup, requestedrestdays: requestedRestDays};
                 const response = await fetch("http://localhost:8080/api/workouts", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
@@ -228,7 +215,7 @@ function SuccessfulLoginFirstTime() {
                     <WorkoutPlan workoutDays={numWorkoutDays} targetedGroup={targetedMuscleGroup} restDays={requestedRestDays} />
                 </div>
                 <div style={{display: "flex", justifyContent: "center", marginTop: "50px"}}>
-                    <button onClick={() => window.location.href = "/fishstick"} className="signup-button">Proceed To Fishstick</button>
+                    <Link className='login-button' to='/fishstick' state={{ username: user }} style={{ textDecoration: 'none' }}>To Your Dashboard</Link>
                 </div>
             </div>    
         )
@@ -431,19 +418,27 @@ function SuccessfulLoginFirstTime() {
     );
 }
 
-function SuccessfulLoginDefault() {
-    const { currentUser } = useUser();
-
+function SuccessfulLoginDefault({user}) {
     return (
-        <FishstickContainer currentLoggedInUser={currentUser}></FishstickContainer>
-        /*<div className='login-page'>
+        <div className='login-page'>
             <div className='login-container'>
                 <div className='login-header'>
-                    <h1>Welcome back, {currentUser.username}!</h1>
+                    <h1>Welcome back, {user}!</h1>
                     <p>We're glad to see you again.</p>
                 </div>
-                <button onClick={() => window.location.href = "/fishstick"} className="signup-button">Proceed To Fishstick</button>
+                    <Link className='login-button' to='/fishstick' state={{ username: user }} style={{ textDecoration: 'none' }}>To Your Dashboard</Link>
             </div>
-        </div>*/
+        </div>
     )
 }
+
+/* 
+FORM OPTIONS
+<div className="form-options">
+    <div className="remember-me">
+        <input type="checkbox" id="remember" />
+        <label htmlFor="remember">Remember me</label>
+    </div>
+    <a href="#" className="forgot-password">Forgot password?</a>
+</div>
+*/

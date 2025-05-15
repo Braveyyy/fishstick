@@ -8,7 +8,6 @@ import Exercise from './pages/Exercises';
 import UserLogin from './pages/UserLogin';
 import UserSignup from './pages/UserSignup';
 import Dashboard from './pages/MainDashboard';
-import { UserProvider, useUser } from './modules/UserContext';
 import FishstickContainer from './pages/FishstickContainer';
 //import reportWebVitals from './reportWebVitals';
 
@@ -17,7 +16,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage/>}></Route>
-            <Route path="fishstick" element={<FishstickContainer currentLoggedInUser={useUser()}/>}></Route>
+            <Route path="fishstick" element={<FishstickContainer/>}></Route>
             <Route path="userSignup" element={<UserSignup/>}></Route>
             <Route path="userLogin" element={<UserLogin/>}></Route>
             <Route path="workoutPlans" element={<WorkoutPlans/>}></Route>
@@ -31,9 +30,7 @@ export default function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserProvider>
-        <App />
-    </UserProvider>
+    <App />
   </React.StrictMode>
 );
 

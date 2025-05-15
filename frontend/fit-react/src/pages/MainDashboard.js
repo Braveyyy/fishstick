@@ -1,20 +1,15 @@
-import React from "react"
 import { useState } from "react"
 import { useEffect } from "react"
-import { useUser } from "../modules/UserContext.js"
 import WorkoutPlan from "../modules/WorkoutPlan.js"
 import "../css/MainDashboard.css"
 
-export default function Dashboard() {
+export default function Dashboard({currentLoggedInUser}) {
   const [workout, setWorkout] = useState(null)
   const [workoutFetched, setWorkoutFetched] = useState(false)
-  const { currentUser } = useUser()
-  const { setCurrentUser } = useUser()
 
   const getWorkoutData = async () => {
-    console.log('CURRENT USER:', currentUser.username)
     try{
-        const response = await fetch("http://localhost:8080/api/workouts/username/" + currentUser.username, {
+        const response = await fetch("http://localhost:8080/api/workouts/username/" + currentLoggedInUser, {
             method: "GET",
             headers: {"Content-Type": "application/json"},
         });
@@ -29,18 +24,17 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    console.log("Effect triggered. currentUser:", currentUser);
-    if (currentUser) {
+    if (currentLoggedInUser) {
       getWorkoutData();
     }
-  }, [currentUser]);
+  }, [currentLoggedInUser]);
   
   return (
     <div className="dashboard-container">
       <main className="dashboard-main">
         <header className="dashboard-header">
           <div className="header-welcome">
-            <h1>Welcome back, {workout?.username || "Loading..."}</h1>
+            <h1>Welcome back, {workout?.username || "loading..."}</h1>
             <p>Let's continue your fitness journey</p>
           </div>
         </header>
@@ -51,6 +45,8 @@ export default function Dashboard() {
             {workoutFetched && (
               <WorkoutPlan workoutDays={workout?.numworkoutdays} targetedGroup={workout?.targetedmuscle} restDays={workout?.requestedrestdays} />
             )}
+            <br></br>
+            <button className="workout-button">Create a New Plan</button>
           </section>
         </div>
       </main>

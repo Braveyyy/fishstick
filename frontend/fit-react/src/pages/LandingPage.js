@@ -17,12 +17,7 @@ export default function LandingPage() {
                                 <h1 className="main-heading">Track, look-up, and evaluate your workouts</h1>
                                 <p className="subheading">Are you ready to transform your fitness?</p>
                             </div>
-                            <button className='login-button' onClick={() => navigate('/userLogin')}>Start Your Journey</button>
-                            <p className='subheading'>Or search by specific muscle groups & find workout plans that actually work</p>
-                            <div className="button-group">
-                                <button className="primary-button" onClick={() => navigate('/workoutPlans')}>Find Efficient Workout Plans</button>
-                                <button className="secondary-button" onClick={() => navigate('/exercises')}>Target Specific Muscle Groups</button>
-                            </div>
+                            <button className='login-button' onClick={() => navigate('/userLogin')}>Start Your Journey Today</button>
                         </div>
                     </div>
                 </section>

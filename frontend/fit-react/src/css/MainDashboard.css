@@ -16,6 +16,27 @@
     --header-height: 70px;
     --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
+
+  .workout-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    gap: 8px;
+  }
+
+  .workout-button:hover {
+    background-color: var(--primary-hover);
+  }
   
   /* Main content styles */
   .dashboard-main {

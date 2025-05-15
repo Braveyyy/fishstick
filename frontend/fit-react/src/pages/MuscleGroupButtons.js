@@ -61,7 +61,10 @@ export default function MuscleGroupButtons() {
               {exercises.length > 0 ? (
                 exercises.map((exercise) => (
                   <li key={exercise.id}>
-                    <strong>{exercise.name}</strong> — {exercise.equipment}
+                    <strong>{exercise.name}</strong>
+                    equipment — {exercise.equipment} <br></br>
+                    difficulty — {exercise.difficulty} <br></br>
+                    instructions — {exercise.instructions}
                   </li>
                 ))
               ) : (
