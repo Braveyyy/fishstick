@@ -3,6 +3,7 @@ import { useState } from 'react';
 import '../css/UserLogin.css';
 import WorkoutPlan from '../modules/WorkoutPlan.js';
 import { Link } from 'react-router-dom';
+const EC2_ADDRESS = "http://52.53.216.175:8080";
 
 export default function UserLogin() {
     const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export default function UserLogin() {
         const loginErrors = { username : "", password: ""};
         try{
             // Check if username already in database
-            const usernameResponse = await fetch("http://localhost:8080/api/users/username/" + username, {
+            const usernameResponse = await fetch(`${EC2_ADDRESS}/api/users/username/` + username, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
             });
@@ -55,7 +56,7 @@ export default function UserLogin() {
         event.preventDefault();
         if(await validateLogin()) {
             try {
-                const response = await fetch("http://localhost:8080/api/users/username/" + username, {
+                const response = await fetch(`${EC2_ADDRESS}/api/users/username/` + username, {
                     method: "GET",
                     headers: {"Content-Type": "application/json"},
                 });
@@ -73,7 +74,7 @@ export default function UserLogin() {
 
     const updateFirstTimeLogin = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/users/firstLogin/" + username, {
+            const response = await fetch(`${EC2_ADDRESS}/api/users/firstLogin/` + username, {
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
             });
@@ -187,7 +188,7 @@ function SuccessfulLoginFirstTime({user}) {
         if(validateQuestions()) {
             try {
                 const newWorkout = {username: user, numworkoutdays: numWorkoutDays, targetedmuscle: targetedMuscleGroup, requestedrestdays: requestedRestDays};
-                const response = await fetch("http://localhost:8080/api/workouts", {
+                const response = await fetch(`${EC2_ADDRESS}/api/workouts`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(newWorkout)

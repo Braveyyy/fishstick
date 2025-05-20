@@ -9,14 +9,17 @@ const dotenv = require('dotenv');
 // Cors = a module that enables Cross Orgin Reseource Sharing
 const cors = require('cors');
 // Create server hostname/port variables, express app instance
-const hostname = 'localhost';
+const hostname = '0.0.0.0';
 const port = 8080;
 const app = express();
 
 // note: make sure to use dotenv.config() to load environment variables
 dotenv.config();
 // Enables CORS for all requests and allows server to parse JSON data
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use(express.json());
 
 // API endpoints

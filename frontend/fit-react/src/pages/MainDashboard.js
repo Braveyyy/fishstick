@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useEffect } from "react"
 import WorkoutPlan from "../modules/WorkoutPlan.js"
 import "../css/MainDashboard.css"
+const EC2_ADDRESS = "http://52.53.216.175:8080";
 
 export default function Dashboard({currentLoggedInUser}) {
   const [workout, setWorkout] = useState(null)
@@ -9,7 +10,7 @@ export default function Dashboard({currentLoggedInUser}) {
 
   const getWorkoutData = async () => {
     try{
-        const response = await fetch("http://localhost:8080/api/workouts/username/" + currentLoggedInUser, {
+        const response = await fetch(`${EC2_ADDRESS}/api/workouts/username/` + currentLoggedInUser, {
             method: "GET",
             headers: {"Content-Type": "application/json"},
         });

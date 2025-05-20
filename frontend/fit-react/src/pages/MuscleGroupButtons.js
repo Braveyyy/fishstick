@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import "../css/MuscleGroupButtons.css";
+const EC2_ADDRESS = "http://52.53.216.175:8080";
 
 export default function MuscleGroupButtons() {
-  const muscleGroups = ['abdominals', 'abductors', 'adductors', 'biceps', 'calves', 'chest', 'forearms', 'glutes', 'hamstrings', 'lats', 'lower_back', 'middle_back', 'neck', 'quadriceps', 'traps', 'triceps'];
   const [exercises, setExercises] = useState([]);
   const [activeMuscle, setActiveMuscle] = useState(null);
 
   const handleSearch = async (muscle) => {
     setActiveMuscle(muscle);
     try {
-      const response = await fetch(`http://localhost:8080/api/exercises/${muscle}`);
+      const response = await fetch(`${EC2_ADDRESS}/api/exercises/${muscle}`);
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Error: ${response.status} ${errorText}`);

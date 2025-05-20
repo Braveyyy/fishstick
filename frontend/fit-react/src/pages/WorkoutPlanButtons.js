@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../css/MuscleGroupButtons.css"; // Reuse styling for consistency
+import "../css/MuscleGroupButtons.css";
 
 export default function WorkoutPlanButtons() {
   const workoutCategories = [
