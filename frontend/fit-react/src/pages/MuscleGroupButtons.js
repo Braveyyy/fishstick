@@ -8,7 +8,7 @@ export default function MuscleGroupButtons() {
   const handleSearch = async (muscle) => {
     setActiveMuscle(muscle);
     try {
-      const response = await fetch(`${import.meta.env.FRONTEND_URL}/api/exercises/${muscle}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/exercises/${muscle}`);
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Error: ${response.status} ${errorText}`);

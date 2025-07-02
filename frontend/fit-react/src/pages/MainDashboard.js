@@ -9,7 +9,7 @@ export default function Dashboard({currentLoggedInUser}) {
 
   const getWorkoutData = async () => {
     try{
-        const response = await fetch(`${import.meta.env.FRONTEND_URL}/api/workouts/username/` + currentLoggedInUser, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/workouts/username/` + currentLoggedInUser, {
             method: "GET",
             headers: {"Content-Type": "application/json"},
         });

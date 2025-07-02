@@ -14,12 +14,12 @@ export default function UserSignup() {
         const signupErrors = { email: "", password: ""};
         try {
             // Check if email already in database
-            const emailResponse = await fetch(`${import.meta.env.FRONTEND_URL}/api/users/email/` + email, {
+            const emailResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/users/email/` + email, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
             });
             // Check if username already in database
-            const usernameResponse = await fetch(`${import.meta.env.FRONTEND_URL}/api/users/username/` + username, {
+            const usernameResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/users/username/` + username, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
             });
@@ -72,7 +72,7 @@ export default function UserSignup() {
         if(await validateSignup()) {
             try {
                 const newUser = {email: email, username: username, password: password};
-                const response = await fetch(`${import.meta.env.FRONTEND_URL}/api/users`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(newUser)
