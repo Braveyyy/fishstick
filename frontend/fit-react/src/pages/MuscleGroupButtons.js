@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "../css/MuscleGroupButtons.css";
-const EC2_ADDRESS = "http://52.53.216.175:8080";
 
 export default function MuscleGroupButtons() {
   const [exercises, setExercises] = useState([]);
@@ -9,7 +8,7 @@ export default function MuscleGroupButtons() {
   const handleSearch = async (muscle) => {
     setActiveMuscle(muscle);
     try {
-      const response = await fetch(`${EC2_ADDRESS}/api/exercises/${muscle}`);
+      const response = await fetch(`${import.meta.env.FRONTEND_URL}/api/exercises/${muscle}`);
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`Error: ${response.status} ${errorText}`);

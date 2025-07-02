@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import '../css/UserSignup.css';
-const EC2_ADDRESS = "http://52.53.216.175:8080";
 
 export default function UserSignup() {
     const [email, setEmail] = useState("");
@@ -15,12 +14,12 @@ export default function UserSignup() {
         const signupErrors = { email: "", password: ""};
         try {
             // Check if email already in database
-            const emailResponse = await fetch(`${EC2_ADDRESS}/api/users/email/` + email, {
+            const emailResponse = await fetch(`${import.meta.env.FRONTEND_URL}/api/users/email/` + email, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
             });
             // Check if username already in database
-            const usernameResponse = await fetch(`${EC2_ADDRESS}/api/users/username/` + username, {
+            const usernameResponse = await fetch(`${import.meta.env.FRONTEND_URL}/api/users/username/` + username, {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
             });
@@ -73,7 +72,7 @@ export default function UserSignup() {
         if(await validateSignup()) {
             try {
                 const newUser = {email: email, username: username, password: password};
-                const response = await fetch(`${EC2_ADDRESS}/api/users`, {
+                const response = await fetch(`${import.meta.env.FRONTEND_URL}/api/users`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(newUser)
