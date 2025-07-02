@@ -1,5 +1,5 @@
 {
-    "installCommand": "npm install --legecay-peer-deeps",
+    "installCommand": "npm install --legecay-peer-deps",
     "version": 2,
     "builds": [
         {
