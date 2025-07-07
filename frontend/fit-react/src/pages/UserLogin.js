@@ -135,6 +135,7 @@ export default function UserLogin() {
                     </form>
                     <div className="login-footer">
                         <p>Don't have an account? <a href="/userSignup">Sign up</a></p>
+                        <button onClick={() => { setSuccessfulLogin(true); setUsername("Guest"); }} className='login-button' style={{width: "450px", background: "white", color: "#4f46e5", fontSize: "15px"}}>Or continue as a Guest</button>
                     </div>
                 </div>
             </div>
