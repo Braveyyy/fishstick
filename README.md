@@ -6,4 +6,6 @@ That's why I decided to develop Fishstick, an online tool used to develop person
 
 The planning should come easy, Fishstick handles it for you so that you can focus on what really matters: actually working out!
 
+#**Visit https://fishstick-fitness.vercel.app/ to give it a shot!**
+
 *development build*
